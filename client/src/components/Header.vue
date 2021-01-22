@@ -9,7 +9,6 @@
                 <router-link class="navbar-item" to="/" tag="li"><a>Home</a></router-link>
                 <router-link class="navbar-item" to="/shop" tag="li"><a>Shop</a></router-link>
                 <router-link class="navbar-item" to="/about" tag="li"><a>About</a></router-link>
-                <router-link class="navbar-item" to="/contact" tag="li"><a>Contact</a></router-link>
             </ul>
         </nav>
         <nav class="right-nav">
