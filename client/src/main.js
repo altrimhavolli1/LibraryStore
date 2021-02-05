@@ -5,13 +5,14 @@ import VueResource from 'vue-resource';
 import App from './App'
 import { routes } from './routes'
 
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 
 const router = new VueRouter({
   mode: 'history',

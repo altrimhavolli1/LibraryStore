@@ -1,19 +1,29 @@
 <template>
-    <div>
+    <div class="container">
         <div class="product-overwiew">
             <h1>Featured Books of the</h1>
             <span>February</span>
-            <button>See More</button>
-            <div class="image-header"></div>
+            <b-button
+                type="button"
+                to="/shop"
+                variant="outline-dark"
+                size="lg"
+            >See more</b-button>
         </div>
-        <br><br><br><br><br><br><br>
+        <br><br>
         <div>
             <h1 class="bestselling-books">Bestselling Books</h1>
             <app-books></app-books>
-            <router-link 
-                class="see-more-btn"
-                to="/shop"
-            >See More in Shop</router-link>
+            <br><br>
+            <div class="text-center">
+                <b-button
+                    type="button"
+                    size="lg"
+                    to="/shop"
+                    pill
+                    variant="outline-info"
+                >See more in Shop</b-button>
+            </div>
         </div>
         <br><br><br><br>
     </div>
@@ -30,17 +40,18 @@
 
 <style scoped>
     .product-overwiew{
+        padding: 10rem 0 5rem 0;
         width: 100%;
+        background: url("../assets/images/Fullstack-Vue-The-Complete-Guide-to-Vue.js.png") right/cover no-repeat border-box;
+        background-size: 20rem;
+
     }
 
     .product-overwiew h1 {
-        display: block;
-        font-size: 56px;
+        font-size: 50px;
         color: #161619;
-        font-weight: 400;
-        margin: 0;
+        font-weight: 500;
         padding-top: 130px;
-        padding-left: 80px;
     }   
 
     .product-overwiew span {
@@ -48,30 +59,6 @@
         font-size: 56px;
         color: #161619;
         font-weight: 700;
-        padding-left: 80px;
-    }
-
-    .product-overwiew button {
-        color: #fff;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 1.5;
-        cursor: pointer;
-        background-color: #161619;
-        border-color: #161619;
-        padding: 0.75rem 3rem;
-        margin-left: 80px;
-    }
-
-    .image-header {
-        position: absolute;
-        background: url("../assets/images/Fullstack-Vue-The-Complete-Guide-to-Vue.js.png") center/cover no-repeat border-box;
-        background-size: 40%;
-        width: 50%;
-        height: 70%;
-        z-index: 1;
-        top: 100px;
-        right: 1%;
     }
 
     .bestselling-books{
@@ -80,19 +67,21 @@
         font-weight: 400;
         text-align: center;
         margin: 0;
-        padding: 80px 0 60px 0;
+        /* padding: 80px 0 60px 0; */
     }
 
-    .see-more-btn{
-        color: #000;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 1.5;
-        text-decoration: none;
-        cursor: pointer;
-        background-color: #41B883;
-        border: none;
-        padding: 0.75rem 3rem;
-        margin-left: 38.5rem;
+    @media screen and (max-width: 1096px) {
+        .product-overwiew{
+            background-size: 15rem;
+            padding: 0 0 30rem 0;
+            background-position: bottom center;
+        }
+        .product-overwiew h1{
+            font-size: 40px;
+            padding-top: 70px;
+        }
+        .product-overwiew span{
+            font-size: 50px;
+        }
     }
 </style>

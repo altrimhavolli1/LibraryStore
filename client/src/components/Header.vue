@@ -1,6 +1,6 @@
 <template>
 <div>
-  <b-navbar toggleable="lg" type="dark" variant="dark" sticky>
+  <b-navbar toggleable="lg" type="dark" variant="dark">
     
     <b-navbar-brand href="#" class="navbar-logo">
         <router-link to="/">
@@ -49,16 +49,15 @@ export default {
 </script>
 
 <style scoped>
-    img {
-        width: 4rem;
-        height: 4rem;
-    }
-
-    .navbar-logo a {
-        text-decoration: none;
-        text-transform: uppercase;
-        color: #f3f3f3cc;
-        font-size: 18px;
-        font-weight: 700;
-    }
+  img {
+    width: 4rem;
+    height: 4rem;
+  }
+  .navbar-logo a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+  }
 </style>

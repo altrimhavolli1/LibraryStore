@@ -1,10 +1,56 @@
 <template>
-    <div>
-        <h1>About Us</h1>
-        <hr>
-        <p class="about-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure ducimus natus nulla in atque numquam molestias illum mollitia voluptatibus? Distinctio necessitatibus doloribus quas quidem laudantium harum corrupti voluptatem mollitia. Deleniti. Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi quibusdam error vitae quasi in ipsa voluptatum voluptate iure sequi nam!</p>
-        <p class="about-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero vel, ea aliquid doloremque accusamus aliquam reprehenderit labore illum at. Nobis in officia dolore doloremque aliquid quia nostrum exercitationem excepturi optio? Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere asperiores illo nihil nisi earum libero et tempora distinctio veniam placeat!</p>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, blanditiis deleniti modi rem soluta fugit harum ex cum expedita nihil maiores Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, quod? Corporis accusamus corrupti assumenda in. Consequuntur nisi vel iure ex. adipisvoluptatem inventore nisi. Voluptatibus omnis enim labore quidem voluptatum.</p>
+    <div class="about-card">
+        <div class="card-title">
+            <img height="100px" src="../assets/images/profile.jpg" alt="avatar" class="avatar">
+            <div class="title-text-content">
+                <p>About Me</p>
+                <h2>Altrim Havolli</h2>
+            </div>
+        </div>
+        <div class="card-content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit officia quae adipisci dolorem, 
+                id doloremque quaerat rerum sequi ducimus unde fugiat iusto quia neque in atque natus sapiente eaque quo.</p>
+            <table width="100%">
+                <tr>
+                    <th>Requirements</th>
+                    <th>Solution</th>
+                </tr>
+                <tr>
+                    <td>Design</td>
+                    <td>Photoshop, Adobe XD</td>
+                </tr>
+                <tr>
+                    <td>Front-end</td>
+                    <td>React.Js, Vue.Js, HTML, CSS, JavaScript</td>
+                </tr>
+                <tr>
+                    <td>Back-end</td>
+                    <td>Node.Js, Express.Js, MongoDb</td>
+                </tr>
+                <tr>
+                    <td>Mobile Development</td>
+                    <td>Java, Android, React-Native, Firebase</td>
+                </tr>
+                <tr>
+                    <td>GitHub</td>
+                    <td>https://github.com/altrimhavolli1</td>
+                </tr>
+            </table>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, quaerat? Repellat tempore accusamus expedita,
+                culpa placeat commodi facilis ea. Cupiditate, minima odio? Et rerum sapiente incidunt, dolor nisi aspernatur laboriosam.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, quaerat? Repellat tempore accusamus expedita,
+                culpa placeat commodi facilis ea. Cupiditate, minima odio? Et rerum sapiente incidunt, dolor nisi aspernatur laboriosam.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, quaerat? Repellat tempore accusamus expedita,
+                culpa placeat commodi facilis ea. Cupiditate, minima odio? Et rerum sapiente incidunt, dolor nisi aspernatur laboriosam.
+            </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, quaerat? Repellat tempore accusamus expedita,
+                culpa placeat commodi facilis ea. Cupiditate, minima odio? Et rerum sapiente incidunt, dolor nisi aspernatur laboriosam.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, quaerat? Repellat tempore accusamus expedita,
+                culpa placeat commodi facilis ea. Cupiditate, minima odio? Et rerum sapiente incidunt, dolor nisi aspernatur laboriosam.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, quaerat? Repellat tempore accusamus expedita,
+                culpa placeat commodi facilis ea. Cupiditate, minima odio? Et rerum sapiente incidunt, dolor nisi aspernatur laboriosam.
+            </p>
+        </div>
     </div>
 </template>
 
@@ -15,16 +61,52 @@ export default {
 </script>
 
 <style scoped>
-    div {
+    .about-card{
+        padding: 4em;
+        color: black;
+    }
+    .card-title{
+        display: flex;
+        align-items: center;
+        background: #343a40;
+        border-radius: 10px;
+    }
+    .avatar{
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 15%;
+        margin: 30px;
+    }
+    .title-text-content p{
+        color: white;
+        margin-bottom: 0;
+        color: rga(210, 210, 210);
+    }
+    .title-text-content h2{
+        margin-top: 0;
+        color: white;
+    }
+    .card-content {
+        line-height: 1.5;
+        margin: 30px auto;
+    }
+    table {
+        border-spacing: none;
+        margin: 50px auto;
+    }
+    table tr th,
+    table tr td {
+        border: 1px solid black;
+        border-top: none;
+        padding: 10px;
         text-align: center;
+
     }
-    h1{
-        margin-top: 4rem;
+    table tr th:first-of-type,
+    table tr td:first-of-type {
+        border-left: none;
     }
-    p{
-        width: 70%;
-        text-align: justify;
-        margin-left: 15%;
-        padding: 20px 0;
+    table tr th:nth-of-type(2),
+    table tr td:nth-of-type(2) {
+        border-right: none;
     }
 </style>
