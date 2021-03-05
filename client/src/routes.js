@@ -7,7 +7,7 @@ import Register from './components/Register.vue';
 
 
 export const routes = [
-    { path: '/', component: Home },
+    { path: '/', name: 'home', component: Home },
     { path: '/shop', component: Shop },
     { path: '/about', component: About },
     { path: '/admin', component: AdminPanel },

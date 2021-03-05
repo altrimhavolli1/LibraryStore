@@ -10,13 +10,19 @@
                     header-text-variant="white"
                   >
                     <b-card-text>
-                        <b-form>
+                        <div v-if="error" class="alert alert-danger">{{error}}</div>
+                        <b-form
+                        action="#"
+                        @submit.prevent = "submit">
                             <b-form-group>
                                 <b-form-input
                                     id="first-name"
                                     type="text"
                                     placeholder="First Name"
+                                    value
                                     required
+                                    autofocus
+                                    v-model="form.name"
                                     size="lg"
                                 ></b-form-input>
                             </b-form-group>
@@ -25,7 +31,10 @@
                                     id="last-name"
                                     type="text"
                                     placeholder="Last Name"
+                                    value
                                     required
+                                    autofocus
+                                    v-model="form.lastName"
                                     size="lg"
                                 ></b-form-input>
                             </b-form-group>
@@ -34,7 +43,10 @@
                                     id="address"
                                     type="text"
                                     placeholder="Address, House No. & Street Name"
+                                    value
                                     required
+                                    autofocus
+                                    v-model="form.address"
                                     size="lg"
                                 ></b-form-input>
                             </b-form-group>
@@ -43,7 +55,10 @@
                                     id="email"
                                     type="email"
                                     placeholder="Enter Email"
+                                    value
                                     required
+                                    autofocus
+                                    v-model="form.email"
                                     size="lg"
                                 ></b-form-input>
                             </b-form-group>
@@ -51,21 +66,12 @@
                                 <b-form-input
                                     id="password"
                                     type="password"
-                                    v-model="password"
+                                    placeholder="Password must be 6 characters"
+                                    value
+                                    required
+                                    autofocus
+                                    v-model="form.password"
                                     :state="passwordState"
-                                    placeholder="Password must be 8 characters"
-                                    required
-                                    size="lg"
-                                ></b-form-input>
-                            </b-form-group>
-                            <b-form-group>
-                                <b-form-input
-                                    id="retype-password"
-                                    type="password"
-                                    v-model="retypePassword"
-                                    :state="retypePasswordState"
-                                    placeholder="Retype Password"
-                                    required
                                     size="lg"
                                 ></b-form-input>
                             </b-form-group>
@@ -88,21 +94,46 @@
 </template>
 
 <script>
+import firebase from 'firebase';
+
 export default {
     data() {
-      return {
-          password: '',
-          retypePassword: '',
-      }
+        return {
+            form: {
+                name: "",
+                lastName: "",
+                address: "",
+                email: "",
+                password: "",
+            },
+            error: null,
+        };
     },
     computed: {
         passwordState() {
-            return this.password.length >= 8 ? true : false
+            return this.form.password.length >= 6 ? true : false
         },
-        retypePasswordState() {
-          return (this.retypePassword.length !== this.password.length) ? false : true
-      }
     },
+    methods: {
+        submit() {
+            firebase
+            .auth()
+            .createUserWithEmailAndPassword(this.form.email, this.form.password)
+            .then(data => {
+                data.user
+                    .updateProfile({
+                        displayName: this.form.name,
+                        displayLastName: this.form.lastName
+                    })
+                    .then(() => {});
+
+                this.$router.push({name: "home",})
+            })
+            .catch(err => {
+                this.error = err.message;
+            });
+        }
+    }
 };
 </script>
 

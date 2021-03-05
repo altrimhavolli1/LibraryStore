@@ -10,13 +10,16 @@
                     header-text-variant="white"
                   >
                     <b-card-text>
-                        <b-form>
+                        <div v-if="error" class="alert alert-danger">{{error}}</div>
+                        <b-form action="#" @submit.prevent = "submit">
                             <b-form-group>
                                 <b-form-input
                                     id="input-1"
                                     type="email"
                                     placeholder="Enter Email"
                                     required
+                                    autofocus
+                                    v-model="form.email"
                                     size="lg"
                                 ></b-form-input>
                             </b-form-group>
@@ -24,7 +27,7 @@
                                 <b-form-input
                                     id="input-2"
                                     type="password"
-                                    v-model="password"
+                                    v-model="form.password"
                                     :state="passwordState"
                                     placeholder="Enter Password"
                                     required
@@ -37,7 +40,7 @@
                                     pill 
                                     variant="outline-info" 
                                     size="lg"
-                                >LogIn</b-button>
+                                >Login</b-button>
                             </b-form-group>
                         </b-form>
                     </b-card-text>
@@ -50,18 +53,37 @@
 </template>
 
 <script>
+import firebase from 'firebase';
+import router from '@/router';
+
 export default {
     data() {
       return {
-          email: '',
-          password: '',
+          form:{
+            email: '',
+            password: '',
+          },
+          error: null
       }
     },
     computed: {
         passwordState() {
-            return this.password.length >= 8 ? true : false
+            return this.form.password.length >= 6 ? true : false
         },
     },
+    methods: {
+        submit() {
+            firebase
+            .auth()
+            .signInWithEmailAndPassword(this.form.email, this.form.password)
+            .then(data => {
+                router.push({name: "home",})
+            })
+            .catch(err => {
+                this.error = err.message
+            })
+        }
+    }
 };
 </script>
 
