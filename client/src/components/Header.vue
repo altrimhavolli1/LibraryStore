@@ -15,19 +15,20 @@
         <b-nav-item to="/">Home</b-nav-item>
         <b-nav-item to="/shop">Shop</b-nav-item>
         <b-nav-item to="/about">About</b-nav-item>
+        <b-nav-item to="/contact">Contact</b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items if user is logged in -->
-      <template v-if="!user.loggedIn">
+      <!-- <template v-if="!user.loggedIn"> -->
         <b-navbar-nav class="ml-auto" right>
           <b-navbar-nav>
             <b-nav-item to="/login">Login</b-nav-item>
             <b-nav-item to="/register">Register</b-nav-item>
           </b-navbar-nav>
         </b-navbar-nav>
-      </template>
+      <!-- </template> -->
       <!-- Right aligned nav items if user is not logged in-->
-      <template v-else>
+      <!-- <template v-else>
         <b-navbar-nav class="ml-auto">
           <b-navbar-nav>
             <b-nav-item to="/cart">Cart</b-nav-item>
@@ -41,7 +42,7 @@
             <b-dropdown-item href="#" @click.prevent="signOut">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
-      </template>
+      </template> -->
     </b-collapse>
   </b-navbar>
 </div>
@@ -49,7 +50,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import firebase from 'firebase';
+import axios from 'axios';
+
 
 export default {
   computed: {
@@ -59,13 +61,16 @@ export default {
   },
   methods: {
     signOut() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.$router.replace({name: "home"});
-        });
+      
     }
+  },
+  async create() {
+    const res = await axios.get('http://localhost:3000/users/:id', {
+      headers: {
+        Authorization: 'Bearer' + localStorage.getItem('token')
+      }
+    })
+    console.log(res);
   }
 }
 </script>

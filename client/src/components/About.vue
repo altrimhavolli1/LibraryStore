@@ -1,112 +1,71 @@
 <template>
-    <div class="about-card">
-        <div class="card-title">
-            <img height="100px" src="../assets/images/profile.jpg" alt="avatar" class="avatar">
-            <div class="title-text-content">
-                <p>About Me</p>
-                <h2>Altrim Havolli</h2>
+    <div>
+        <appHeader/>
+        <div class="container about">
+            <div class="row justify-content-center">
+                <div class="col-md-10 col-sm-6 col-xs-12">
+                    <div class=" row justify-content-center">
+                        <div class="col-md-6 section-about">
+                            <h2 class="aboutus-title">About Us</h2>
+                            <p class="aboutus-text">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui, eaque tempore exercitationem neque assumenda impedit! 
+                                Debitis distinctio veritatis unde perferendis dignissimos iure animi voluptates ab modi aliquid. Placeat, nemo velit.
+                            </p>
+                            <p class="aboutus-text">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores sit dolores iusto reprehenderit repudiandae molestias esse. 
+                                Quod est perspiciatis, repudiandae non vel consectetur pariatur dolorem nam incidunt? Necessitatibus, iure nobis?
+                            </p>
+                            <div>
+                                <b-button 
+                                        type="submit" 
+                                        pill
+                                        to="/contact"
+                                        variant="outline-dark" 
+                                        size="md"
+                                    >Contact Us</b-button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <img src="../assets/images/undraw_laravel_and_vue_59tp.svg" alt="image" class="img-fluid">
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="card-content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit officia quae adipisci dolorem, 
-                id doloremque quaerat rerum sequi ducimus unde fugiat iusto quia neque in atque natus sapiente eaque quo.</p>
-            <table width="100%">
-                <tr>
-                    <th>Requirements</th>
-                    <th>Solution</th>
-                </tr>
-                <tr>
-                    <td>Design</td>
-                    <td>Photoshop, Adobe XD</td>
-                </tr>
-                <tr>
-                    <td>Front-end</td>
-                    <td>React.Js, Vue.Js, HTML, CSS, JavaScript</td>
-                </tr>
-                <tr>
-                    <td>Back-end</td>
-                    <td>Node.Js, Express.Js, MongoDb</td>
-                </tr>
-                <tr>
-                    <td>Mobile Development</td>
-                    <td>Java, Android, React-Native, Firebase</td>
-                </tr>
-                <tr>
-                    <td>GitHub</td>
-                    <td>https://github.com/altrimhavolli1</td>
-                </tr>
-            </table>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, quaerat? Repellat tempore accusamus expedita,
-                culpa placeat commodi facilis ea. Cupiditate, minima odio? Et rerum sapiente incidunt, dolor nisi aspernatur laboriosam.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, quaerat? Repellat tempore accusamus expedita,
-                culpa placeat commodi facilis ea. Cupiditate, minima odio? Et rerum sapiente incidunt, dolor nisi aspernatur laboriosam.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, quaerat? Repellat tempore accusamus expedita,
-                culpa placeat commodi facilis ea. Cupiditate, minima odio? Et rerum sapiente incidunt, dolor nisi aspernatur laboriosam.
-            </p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, quaerat? Repellat tempore accusamus expedita,
-                culpa placeat commodi facilis ea. Cupiditate, minima odio? Et rerum sapiente incidunt, dolor nisi aspernatur laboriosam.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, quaerat? Repellat tempore accusamus expedita,
-                culpa placeat commodi facilis ea. Cupiditate, minima odio? Et rerum sapiente incidunt, dolor nisi aspernatur laboriosam.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, quaerat? Repellat tempore accusamus expedita,
-                culpa placeat commodi facilis ea. Cupiditate, minima odio? Et rerum sapiente incidunt, dolor nisi aspernatur laboriosam.
-            </p>
         </div>
     </div>
 </template>
 
 <script>
+import Header from './Header.vue';
 export default {
-
-}
+    components: {
+        appHeader: Header,
+    },
+};
 </script>
 
 <style scoped>
-    .about-card{
-        padding: 4em;
-        color: black;
-    }
-    .card-title{
-        display: flex;
-        align-items: center;
-        background: #343a40;
-        border-radius: 10px;
-    }
-    .avatar{
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 15%;
-        margin: 30px;
-    }
-    .title-text-content p{
-        color: white;
-        margin-bottom: 0;
-        color: rga(210, 210, 210);
-    }
-    .title-text-content h2{
-        margin-top: 0;
-        color: white;
-    }
-    .card-content {
-        line-height: 1.5;
-        margin: 30px auto;
-    }
-    table {
-        border-spacing: none;
-        margin: 50px auto;
-    }
-    table tr th,
-    table tr td {
-        border: 1px solid black;
-        border-top: none;
-        padding: 10px;
-        text-align: center;
+.about{
+    padding: 9rem 0;
+}
+.section-about{
+    padding-top: 2.5rem;
+    padding-right: 5rem;
+}
 
-    }
-    table tr th:first-of-type,
-    table tr td:first-of-type {
-        border-left: none;
-    }
-    table tr th:nth-of-type(2),
-    table tr td:nth-of-type(2) {
-        border-right: none;
-    }
+.section-about h2 {
+    padding-bottom: 1rem;
+}
+
+.section-about p{
+    color: #606060;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.section-about button {
+    margin-top: 1rem;
+}
 </style>

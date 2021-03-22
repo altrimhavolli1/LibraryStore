@@ -1,16 +1,26 @@
 <template>
     <div>
-        <img src="../../assets/logo.png" alt="">
-        <h1>This is Admin Panel</h1>
+        <app-header></app-header>
+        <h1>Admin Panel</h1>
     </div>
 </template>
 
 <script>
+import AdminHeader from './AdminHeader.vue';
+import router from '@/router';
 export default {
-
+    created(){
+        // user is not authorized
+        if(localStorage.getItem('token') === null){
+            router.push('/login');
+        }
+    },
+    components: {
+        appHeader: AdminHeader
+    }
 }
 </script>
 
-<style>
-
+<style scoped>
+    
 </style>
