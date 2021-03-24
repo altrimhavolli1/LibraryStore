@@ -1,49 +1,34 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from 'axios';
 
 import Auth from './Warehouse/Auth';
+import Products from './Warehouse/Products';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    modules: {
-        Auth
-    },
-
+    namespaced: true,
     state: {
-        // user: {
-        //     loggedIn: false,
-        //     data: null
-        // }
+        products: [],
     },
 
     getters: {
-        // user(state){
-        //     return state.user
-        // }
-    },
-
-    mutations: {
-        // SET_LOGGED_IN(state, value){
-        //     state.user.loggedIn = value;
-        // },
-        // SET_USER(state, data){
-        //     state.user.data = data;
-        // }
+        products: state => state.products
     },
 
     actions: {
-        // fetchUser({commit}, user){
-        //     commit("SET_LOGGED_IN", user !== null);
-        //     if(user){
-        //         commit("SET_USER", {
-        //             displayName: user.displayName,
-        //             displayLastName: user.displayLastName,
-        //             email: user.email
-        //         })
-        //     }else {
-        //         commit("SET_USER", null);
-        //     }
-        // }
-    }
+        async getProducts({ commit }) {
+            await axios.get("http://localhost:3000/books")
+            .then(response => {
+                commit("SET_PRODUCTS", response.data);
+            })
+        }
+    },
+
+    mutations: {
+        SET_PRODUCTS(state, products){
+            state.products = products;
+        }
+    },
 });

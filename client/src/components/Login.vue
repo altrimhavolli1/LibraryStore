@@ -116,16 +116,7 @@ export default {
             router.push({ name: "admin" });
           }
         }, err => {
-                let errors = err.response.data.errors;
-                console.log(errors);
-                if (errors.email === '' && errors.password === '') {
-                    this.error = "Please fill all fields!";
-                } else if (errors.email) {
-                    this.error = "Please enter a valid email address!";
-                } else if (errors.password) {
-                    this.error = "Min password length is 6 characters!";
-                }
-            
+          this.error = err.message;
         })
     },
   },

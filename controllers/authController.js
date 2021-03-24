@@ -21,7 +21,7 @@ const handleError = (err) => {
 exports.login = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await User.findOne(email);
+        const user = await User.findOne({email});
         if(user){
             const auth = await bcrypt.compare(password, user.password)
             if(auth){
@@ -37,7 +37,7 @@ exports.login = async (req, res) => {
             }
         }
     } catch (err) {
-        const errors = handleError(err);
-        res.status(400).json({ errors });
+        // const errors = handleError(err);
+        res.status(400).json(err.message);
     }
 }

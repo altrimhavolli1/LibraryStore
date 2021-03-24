@@ -39,6 +39,10 @@ const actions = {
         }
     },
 
+    async register(){
+        
+    },
+
     async getProfile({ commit }) {
         let res = await axios.get('http://localhost:3000/profile');
         commit('USER_PROFILE', res.data.user);

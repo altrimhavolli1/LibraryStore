@@ -1,24 +1,29 @@
 <template>
     <div>
         <app-header></app-header>
-        <div class="container">
-            <div class="product-overwiew">
+        <div class="product-overwiew">
+            <div>
                 <h1>Featured Books of the</h1>
-                <span>February</span>
-                <b-button
-                    class="btn-see-more"
-                    type="button"
-                    to="/shop"
-                    variant="outline-dark"
-                    size="lg"
-                >See more</b-button>
+            <span>February</span>
+            <b-button
+                class="btn-see-more"
+                type="button"
+                to="/shop"
+                variant="outline-dark"
+                size="lg"
+            >See more</b-button>
             </div>
+            <div class="img-header">
+                <img src="../assets/images/vue-ninja.png" alt="">
+            </div>
+        </div>
+        <div class="container">
             <br><br>
             <div>
                 <h1 class="bestselling-books">Bestselling Books</h1>
-                <app-books></app-books>
                 <br><br>
                 <div class="text-center">
+                    
                     <b-button
                         type="button"
                         size="lg"
@@ -34,11 +39,9 @@
 
 <script>
     import Header from './Header.vue';
-    import Books from './books/Books.vue';
     export default {
         components: {
-            appHeader: Header,
-            appBooks: Books,
+            appHeader: Header
         }
     }
 </script>
@@ -48,17 +51,17 @@
     .product-overwiew{
         padding: 10rem 0 5rem 0;
         width: 100%;
-        background: url("../assets/5294.jpg") no-repeat border-box;
-        background-position: 400px 50px;
-        background-size: 60rem;
-
+        background: url("../assets/HeaderBackground.jpg") no-repeat border-box;
+        background-size: cover;
+        display: flex;
+        justify-content: space-around;
     }
 
     .product-overwiew h1 {
         font-size: 50px;
         color: #161619;
         font-weight: 500;
-        padding-top: 130px;
+        padding-top: 200px;
     }   
 
     .product-overwiew span {
@@ -66,6 +69,11 @@
         font-size: 56px;
         color: #161619;
         font-weight: 700;
+    }
+
+    .img-header img{
+        width: 600px;
+        height: 600px;
     }
 
     .bestselling-books{
