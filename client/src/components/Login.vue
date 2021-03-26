@@ -20,7 +20,7 @@
                       placeholder="Enter Email"
                       required
                       autofocus
-                      v-model="form.email"
+                      v-model="email"
                       size="lg"
                     ></b-form-input>
                   </b-form-group>
@@ -28,7 +28,7 @@
                     <b-form-input
                       id="input-2"
                       type="password"
-                      v-model="form.password"
+                      v-model="password"
                       required
                       placeholder="Enter Password"
                       size="lg"
@@ -40,7 +40,7 @@
                       pill
                       variant="outline-info"
                       size="lg"
-                      @click.prevent="submit"
+                      @click.prevent="loginUser"
                       >Login</b-button
                     >
                   </b-form-group>
@@ -56,69 +56,32 @@
 
 <script>
 import Header from "./Header.vue";
-import axios from "axios";
 import router from "@/router";
-
-// import { createNamespacedHelpers } from 'vuex';
-// const { mapGetters, mapActions, mapMutations } = createNamespacedHelpers('Auth');
-
 export default {
   data() {
     return {
-      form: {
-        email: "",
-        password: "",
-      },
+      email: "",
+      password: "",
       error: null,
     };
   },
-  // computed: {
-  //     ...mapGetters(['error_message'])
-  // },
   components: {
     appHeader: Header,
   },
   methods: {
-    // ...mapActions(['login', 'getProfile']),
-    // loginUser(){
-    //     const user = {
-    //         email: this.form.email,
-    //         password: this.form.password
-    //     };
-    //     this.login(user)
-    //         .then(res => {
-    //             if(res.data.success){
-    //                 console.log('Login success');
-    //                 this.getProfile()
-    //                     .then(res => {
-    //                         if(res.data.success){
-    //                             router.push({ name: 'home' });
-    //                         }
-    //                     })
-    //                     .catch(err => console.log(err))
-    //             } else {
-    //                 console.log('Login failed!');
-    //             }
-    //         })
-    //         .catch(err => console.log('error'))
-    // }
-    async submit() {
-      let user = {
-        email: this.form.email,
-        password: this.form.password,
-      };
-      await axios.post("http://localhost:3000/login", user).then((res) => {
-          if (res.data.role === "User") {
-            localStorage.setItem("token", res.data.token);
-            router.push({ name: "home" });
-          } else if (res.data.role === "Admin") {
-            localStorage.setItem("token", res.data.token);
-            router.push({ name: "admin" });
-          }
-        }, err => {
+    loginUser(){
+        this.$store.dispatch("login", {
+          email: this.email,
+          password: this.password
+        })
+        .then(res => {
+          this.$store.dispatch('getProfile')
+          router.push({name: "home"})
+        })
+        .catch(err => {
           this.error = err.message;
         })
-    },
+    }
   },
 };
 </script>

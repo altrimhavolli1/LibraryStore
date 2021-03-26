@@ -12,8 +12,7 @@
                     >
                       <b-card-text>
                           <div v-if="error" class="alert alert-danger">{{error}}</div>
-                          <b-form
-                          @submit.prevent = "submit">
+                          <b-form>
                               <b-form-group>
                                   <b-form-input
                                       id="first-name"
@@ -21,7 +20,7 @@
                                       placeholder="First Name"
                                       value
                                       autofocus
-                                      v-model="form.name"
+                                      v-model="name"
                                       size="lg"
                                   ></b-form-input>
                               </b-form-group>
@@ -32,7 +31,7 @@
                                       placeholder="Last Name"
                                       value
                                       autofocus
-                                      v-model="form.lastName"
+                                      v-model="lastName"
                                       size="lg"
                                   ></b-form-input>
                               </b-form-group>
@@ -43,7 +42,7 @@
                                       placeholder="Address, House No. & Street Name"
                                       value
                                       autofocus
-                                      v-model="form.address"
+                                      v-model="address"
                                       size="lg"
                                   ></b-form-input>
                               </b-form-group>
@@ -54,7 +53,7 @@
                                       placeholder="Enter Email"
                                       value
                                       autofocus
-                                      v-model="form.email"
+                                      v-model="email"
                                       size="lg"
                                   ></b-form-input>
                               </b-form-group>
@@ -65,7 +64,7 @@
                                       placeholder="Password must be 6 characters"
                                       value
                                       autofocus
-                                      v-model="form.password"
+                                      v-model="password"
                                       size="lg"
                                   ></b-form-input>
                               </b-form-group>
@@ -75,6 +74,7 @@
                                       pill 
                                       variant="outline-info" 
                                       size="lg"
+                                      @click.prevent="registerUser"
                                   >Register</b-button>
                               </b-form-group>
                           </b-form>
@@ -89,15 +89,17 @@
 
 <script>
 import Header from './Header.vue';
-import axios from 'axios';
 import router from '@/router';
 
 export default {
     data() {
         return {
-            form: {
-                role: "User"
-            },
+            name: '',
+            lastName: '',
+            address: '',
+            email: "",
+            password: "",
+            role: "User",
             error: null,
         };
     },
@@ -107,32 +109,23 @@ export default {
     computed: {
     },
     methods: {
-        submit() {
-            let newUser = {
-                firstName: this.form.name,
-                lastName: this.form.lastName,
-                address: this.form.address,
-                email: this.form.email,
-                password: this.form.password,
-                role: this.form.role
-            }
-            axios.post('http://localhost:3000/users', newUser)
-                .then(res => {
-                    router.push({name: "home"})
-                }, err => {
-                    let errors = err.response.data.errors;
-                    if(errors){
-                        if(errors.firstName && errors.lastName && errors.address && errors.email && errors.password){
-                            this.error = 'Please fill all fields!'
-                        }
-                        else if(errors.email){
-                            this.error = 'Please enter a valid email address!'
-                        } else if(errors.password){
-                            this.error = 'Min password length is 6 characters!'
-                        }
-                    }
-                })
-        }
+        registerUser(){
+            this.$store.dispatch("register", {
+                firstName: this.name,
+                lastName: this.lastName,
+                address: this.address,
+                email: this.email,
+                password: this.password,
+                role: this.role,
+            })
+            .then(res => {
+                this.$store.dispatch('getProfile')
+                router.push({name: "home"})
+            })
+        .catch(err => {
+          this.error = err.message;
+        })
+    }
     }
 };
 </script>

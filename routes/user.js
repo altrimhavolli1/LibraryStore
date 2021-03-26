@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const User = require('../models/User');
+const passport = require('passport');
 
 // handle errors
 const handleError = (err) => {
@@ -32,6 +33,13 @@ router.get('/', function (req, res, next) {
   });
 });
 
+// Get profile of user
+router.get('/profile', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  let user;
+  user = await User.findById(req.user._id)
+  res.json(user);
+})
+
 // GET single user by its ID
 router.get('/:id', function (req, res, next) {
   User.findById(req.params.id, function (err, user) {
@@ -44,7 +52,7 @@ router.get('/:id', function (req, res, next) {
 router.post('/', async function (req, res, next) {
   const { firstName, lastName, address, email, password, role } = req.body;
   try {
-    const createdUser = await User.create({ firstName, lastName, address, email, password, role });
+    await User.create({ firstName, lastName, address, email, password, role });
     res.status(200).json('User has been created successfully');
   } catch (err) {
     const errors = handleError(err);

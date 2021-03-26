@@ -28,13 +28,35 @@ exports.login = async (req, res) => {
                 let token = jwt.sign({ user: user._id }, 'secretKey');
                 res.status(200).json({
                     title: 'Loggin success',
-                    token,
-                    role: user.role
+                    token
                 });
                 return user;
             } else {
                 res.status(401).json('error: login failed');
             }
+        }
+    } catch (err) {
+        // const errors = handleError(err);
+        res.status(400).json(err.message);
+    }
+}
+
+exports.register = async (req, res) => {
+    const { firstName, lastName, address, email, password, role } = req.body;
+    try {
+        const user = await User.findOne({email});
+        if(!user){
+            await User.create({
+                firstName,
+                lastName,
+                address,
+                email,
+                password,
+                role
+            });
+            res.status(200).json('User has been created successfully');
+        }else {
+            res.status(401).json('error: register failed');
         }
     } catch (err) {
         // const errors = handleError(err);

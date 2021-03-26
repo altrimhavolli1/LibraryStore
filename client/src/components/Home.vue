@@ -42,7 +42,9 @@
     export default {
         components: {
             appHeader: Header
-        }
+        },
+        mounted() {
+        },
     }
 </script>
 

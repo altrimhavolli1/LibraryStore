@@ -5,6 +5,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { requireAuth } = require('./verifyAuth');
 
+const passport = require('passport');
+
 // Set up express app
 const app = express();
 
@@ -15,10 +17,13 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
+// app.use(passport.initialize());
+// require('./passport')(passport);
+
 
 // Route middlewares
 const authRoute = require('./routes/auth');
-app.use('/login', authRoute);
+app.use('/auth', authRoute);
 
 const usersRoute = require('./routes/user');
 app.use('/users', usersRoute);

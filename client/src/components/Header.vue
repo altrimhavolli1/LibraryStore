@@ -19,58 +19,48 @@
       </b-navbar-nav>
 
       <!-- Right aligned nav items if user is logged in -->
-      <!-- <template v-if="!user.loggedIn"> -->
+      <template v-if="!isLoggin">
         <b-navbar-nav class="ml-auto" right>
           <b-navbar-nav>
             <b-nav-item to="/login">Login</b-nav-item>
             <b-nav-item to="/register">Register</b-nav-item>
           </b-navbar-nav>
         </b-navbar-nav>
-      <!-- </template> -->
-      <!-- Right aligned nav items if user is not logged in-->
-      <!-- <template v-else>
+      </template>
+      <!-- Right aligned nav items if user is not logged in -->
+      <template v-else>
         <b-navbar-nav class="ml-auto">
           <b-navbar-nav>
             <b-nav-item to="/cart">Cart</b-nav-item>
           </b-navbar-nav>
           <b-nav-item-dropdown right>
-            <template #button-content>
-              <em>{{user.data.displayName}}</em>
-              <em>{{user.data.displayLastName}}</em>
+            <template #icon-content>
+              <b-avatar variant="light"></b-avatar>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
             <b-dropdown-item href="#" @click.prevent="signOut">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
-      </template> -->
+      </template>
     </b-collapse>
   </b-navbar>
 </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import axios from 'axios';
-
-
+import { mapActions, mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapGetters({
-      user: "user"
-    })
+      user: "user",
+      isLoggin: 'isLoggedIn'
+    }),
   },
   methods: {
+    ...mapActions('getProfile'),
     signOut() {
-      
+      this.$store.dispatch("logout")
     }
-  },
-  async create() {
-    const res = await axios.get('http://localhost:3000/users/:id', {
-      headers: {
-        Authorization: 'Bearer' + localStorage.getItem('token')
-      }
-    })
-    console.log(res);
   }
 }
 </script>
