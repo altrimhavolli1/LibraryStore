@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const User = require('../models/User');
+
+const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
 // handle errors
@@ -34,11 +36,27 @@ router.get('/', function (req, res, next) {
 });
 
 // Get profile of user
-router.get('/profile', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  let user;
-  user = await User.findById(req.user._id)
-  res.json(user);
-})
+router.get('/profile', (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if(authHeader){
+    const token = authHeader.split(' ')[1];
+
+    jwt.verify(token, 'secretKey', (err, payload) => {
+      console.log(payload);
+      if(err) return res.status(401).json({ 
+        title: 'unauthorized'
+      })
+  
+      User.findOne({ _id: payload.id }, (err, user) => {
+        if(err) return console.log(err);
+        return res.status(200).json({
+          title: 'user grabbed',
+          user
+        })
+      })
+    })
+  }
+}),
 
 // GET single user by its ID
 router.get('/:id', function (req, res, next) {

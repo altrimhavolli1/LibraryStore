@@ -106,6 +106,7 @@ export default {
     }
   },
   created () {
+
     axios.get(`http://localhost:3000/users/${this.$route.params.id}`)
     .then(response => {
       this.user = response.data

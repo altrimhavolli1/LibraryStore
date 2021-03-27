@@ -2,6 +2,7 @@ import Home from '@/components/Home.vue';
 import Shop from '@/components/Shop.vue';
 import About from '@/components/About.vue';
 import ClientContact from '@/components/Contact.vue';
+import UserProfile from '@/components/UserProfile.vue';
 
 import AdminPanel from '@/components/admin/Admin.vue';
 
@@ -22,7 +23,6 @@ import Login from '@/components/Login.vue';
 import Register from '@/components/Register.vue';
 
 import VueRouter from 'vue-router';
-// import router from './index';
 
 export default new VueRouter({
     mode: 'history',
@@ -31,11 +31,8 @@ export default new VueRouter({
         { path: '/shop', name: 'shop', component: Shop },
         { path: '/about', name: 'about', component: About },
         { path: '/contact', name: 'contact', component: ClientContact},
-        { path: '/admin', name: 'admin', component: AdminPanel,
-        // meta:{
-        //     requiredAuth: true
-        // }
-        },
+        { path: '/user-profile/:id', name: 'user-profile', component: UserProfile},
+        { path: '/admin', name: 'admin', component: AdminPanel},
         { path: '/admin/books', name: 'books', component: Books},
         { path: '/admin/show-book/:id', name: 'show-book', component: Book},
         { path: '/admin/add-book', name: 'add-book', component: AddBook },

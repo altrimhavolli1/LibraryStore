@@ -42,6 +42,7 @@ export default {
     appHeader: AdminHeader
   },
   created () {
+
     axios.get(`http://localhost:3000/contacts/` + this.$route.params.id)
     .then(response => {
       this.contact = response.data

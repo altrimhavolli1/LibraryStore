@@ -34,11 +34,11 @@
             <b-nav-item to="/cart">Cart</b-nav-item>
           </b-navbar-nav>
           <b-nav-item-dropdown right>
-            <template #icon-content>
-              <b-avatar variant="light"></b-avatar>
+            <template #button-content>
+              <b-icon icon="person-fill"></b-icon>
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#" @click.prevent="signOut">Sign Out</b-dropdown-item>
+            <b-dropdown-item @click.stop="userProfile(user._id)">Profile</b-dropdown-item>
+            <b-dropdown-item @click.prevent="signOut">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </template>
@@ -48,16 +48,21 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapGetters({
-      user: "user",
-      isLoggin: 'isLoggedIn'
+      isLoggin: 'isLoggedIn',
+      user: 'user'
     }),
   },
   methods: {
-    ...mapActions('getProfile'),
+    userProfile(userId) {
+      router.push({
+        name: 'user-profile',
+        params: { id: userId }
+      })
+    },
     signOut() {
       this.$store.dispatch("logout")
     }

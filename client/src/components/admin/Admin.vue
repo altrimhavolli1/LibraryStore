@@ -9,12 +9,17 @@
 import AdminHeader from './AdminHeader.vue';
 import router from '@/router';
 export default {
-    created(){
-        // user is not authorized
-        if(localStorage.getItem('token') === null){
-            router.push('/login');
-        }
-    },
+    // mounted(){
+    //     if(this.$store.getters.isLoggedIn !== ''){
+    //         if(this.$store.getters.user.role === 'User'){
+    //             router.push({name: "home"})
+    //         } else {
+    //             router.push({name: "admin"})
+    //         }
+    //     } else {
+    //         router.push('/login');
+    //     }
+    // },
     components: {
         appHeader: AdminHeader
     }

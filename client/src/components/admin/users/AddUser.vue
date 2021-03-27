@@ -105,6 +105,8 @@ export default {
       error: null
     }
   },
+  created () {
+  },
   components: {
     appHeader: AdminHeader
   },

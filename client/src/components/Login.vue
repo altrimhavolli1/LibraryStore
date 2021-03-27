@@ -57,6 +57,8 @@
 <script>
 import Header from "./Header.vue";
 import router from "@/router";
+
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -69,18 +71,21 @@ export default {
     appHeader: Header,
   },
   methods: {
+    ...mapActions(["login", "getProfile"]),
     loginUser(){
-        this.$store.dispatch("login", {
-          email: this.email,
-          password: this.password
-        })
+      const user = {
+        email: this.email,
+        password: this.password
+      };
+      this.login(user)
         .then(res => {
-          this.$store.dispatch('getProfile')
-          router.push({name: "home"})
-        })
-        .catch(err => {
-          this.error = err.message;
-        })
+          console.log("Login success");
+          this.getProfile()
+            .then(res => {
+              console.log(res.data.user.role)
+              router.push({name: "home"});
+          })
+        }).catch(err => console.log(err));
     }
   },
 };

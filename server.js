@@ -3,9 +3,6 @@ const path = require('path');
 // const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const { requireAuth } = require('./verifyAuth');
-
-const passport = require('passport');
 
 // Set up express app
 const app = express();
@@ -16,10 +13,6 @@ require('./mongoDB');
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-
-// app.use(passport.initialize());
-// require('./passport')(passport);
-
 
 // Route middlewares
 const authRoute = require('./routes/auth');
