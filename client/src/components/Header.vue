@@ -19,7 +19,7 @@
       </b-navbar-nav>
 
       <!-- Right aligned nav items if user is logged in -->
-      <template v-if="!isLoggin">
+      <template v-if="isLoggin == ''">
         <b-navbar-nav class="ml-auto" right>
           <b-navbar-nav>
             <b-nav-item to="/login">Login</b-nav-item>
@@ -37,7 +37,7 @@
             <template #button-content>
               <b-icon icon="person-fill"></b-icon>
             </template>
-            <b-dropdown-item @click.stop="userProfile(user._id)">Profile</b-dropdown-item>
+            <b-dropdown-item @click.stop="userProfile(user.user._id)">Profile</b-dropdown-item>
             <b-dropdown-item @click.prevent="signOut">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -49,6 +49,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import router from '@/router';
 export default {
   computed: {
     ...mapGetters({
@@ -58,6 +59,7 @@ export default {
   },
   methods: {
     userProfile(userId) {
+      console.log(userId);
       router.push({
         name: 'user-profile',
         params: { id: userId }

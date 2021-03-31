@@ -16,7 +16,7 @@ export default new Vuex.Store({
 
     getters: {
         products: state => state.products,
-        isLoggedIn: state => !!state.token,
+        isLoggedIn: state => state.token,
         user: state => state.user
     },
 
@@ -51,8 +51,9 @@ export default new Vuex.Store({
         },
 
         async getProfile({ commit }) {
-            let res = await axios.get("http://localhost:3000/users/profile");
-            commit('USER_PROFILE', res.data);
+            const res = await axios.get("http://localhost:3000/users/profile");
+            const user = res.data; 
+            commit('USER_PROFILE', user);
             return res;
         },
 

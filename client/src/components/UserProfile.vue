@@ -1,6 +1,11 @@
 <template>
     <div>
-        <appHeader/>
+        <template v-if="userRole.user.role === 'User'">
+            <appHeader/>
+        </template>
+        <template v-else>
+            <appAdminHeader/>
+        </template>
         <br>
         <div class="container">
         <b-navbar toggleable="lg">
@@ -20,16 +25,16 @@
         <div class="container-fluid mt-6 mb-9">
             <div class="row mt-6">
                 <div class="col-md-6 mx-auto">
-                    <label class="label">First Name:</label>
-                    <input class="form-control form-ctrl" placeholder="First Name" v-model="user.firstName">
-                    <label class="label">Last Name:</label>
-                    <input class="form-control" placeholder="Last Name" v-model="user.lastName">
-                    <label class="label">Your Address:</label>
-                    <input class="form-control" placeholder="Address" v-model="user.address">
-                    <label class="label">Your Email:</label>
-                    <input class="form-control" placeholder="Email" v-model="user.email">
-                    <label class="label">Your password:</label>
-                    <input class="form-control" placeholder="Password" v-model="user.password">
+                    <label class="label label-ctrl">Your Name:</label>
+                    <input class="form-control form-control-lg form-ctrl" placeholder="First Name" readonly v-model="user.firstName">
+                    <label class="label label-ctrl">Your Surame:</label>
+                    <input class="form-control form-control-lg form-ctrl" placeholder="Last Name" readonly v-model="user.lastName">
+                    <label class="label label-ctrl">Your Address:</label>
+                    <input class="form-control form-control-lg form-ctrl" placeholder="Address" readonly v-model="user.address">
+                    <label class="label label-ctrl">Your Email:</label>
+                    <input class="form-control form-control-lg form-ctrl" placeholder="Email" readonly v-model="user.email">
+                    <label class="label label-ctrl">Your password:</label>
+                    <input class="form-control form-control-lg form-ctrl" placeholder="Password" readonly v-model="user.password">
                 </div>
             </div>
         </div>
@@ -39,30 +44,49 @@
 
 <script>
 import Header from './Header.vue';
+import AdminHeader from './admin/AdminHeader.vue';
+import axios from 'axios';
+import { mapGetters } from 'Vuex';
 export default {
     data () {
         return {
-            user: {},
-            // error: null
+            user: {}
         }
+    },
+    computed: {
+        ...mapGetters({
+            userRole: 'user'
+        }),
     },
     created () {
         axios.get(`http://localhost:3000/users/${this.$route.params.id}`)
             .then(response => {
-            this.user = response.data
-        })
+                console.log(response);
+                this.user = response.data
+            })
         .catch(err => {
             this.error = err.message
         })
     },
     components: {
         appHeader: Header,
+        appAdminHeader: AdminHeader,
     },
 }
 </script>
 
 <style scoped>
     .form-ctrl {
+        width: 70%;
+        margin-left: 15%;
         margin-bottom: 20px;
+    }
+
+    .label-ctrl {
+        margin: 0;
+        width: 70%;
+        margin-left: 15%;
+        font-size: 19px;
+        font-weight: bold;
     }
 </style>

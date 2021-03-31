@@ -1,5 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb){
+    cb(null, '../uploads/');
+  },
+  filename: function (req, file, cb){
+    cb(null, file.originalname);
+  }
+})
+const upload = multer({ storage: storage });
 
 const Book = require('../models/Book');
 
@@ -20,11 +31,25 @@ router.get('/:id', function(req, res, next) {
 });
   
 // Create new book
-router.post('/', function(req, res, next) {
-    Book.create(req.body, function (err, book) {
-      if (err) return next(err);
-      res.json(book);
-    });
+router.post('/', upload.single('productImage'), (req, res, next) => {
+  const book = new Book({
+    title: req.body.title,
+    author: req.body.author,
+    published_Year: req.body.published_Year,
+    isbn: req.body.isbn,
+    price: req.body.price,
+    description: req.body.description,
+    productImage: req.file.originalname
+  });
+  book.save()
+    .then(res => {
+      console.log(res);
+      res.status(200).json(book);
+    })
+    // Book.create(req.body, function (err, book) {
+    //   if (err) return next(err);
+    //   res.json(book);
+    // });
 });
   
 // UPDATE a book by its ID

@@ -82,8 +82,12 @@ export default {
           console.log("Login success");
           this.getProfile()
             .then(res => {
-              console.log(res.data.user.role)
-              router.push({name: "home"});
+              const userRole = res.data.user.role;
+              if(userRole === 'Admin'){
+                router.push({name: "admin"})
+              } else {
+                router.push({name: "home"});
+              }
           })
         }).catch(err => console.log(err));
     }

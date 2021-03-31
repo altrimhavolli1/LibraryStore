@@ -36,8 +36,8 @@
               <template #button-content>
                 <b-icon icon="person-fill"></b-icon>
               </template>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="#" @click.prevent="signOut"
+              <b-dropdown-item @click.stop="userProfile(user.user._id)">Profile</b-dropdown-item>
+              <b-dropdown-item @click.prevent="signOut"
                 >Sign Out</b-dropdown-item
               >
             </b-nav-item-dropdown>
@@ -50,13 +50,22 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import router from '@/router';
 export default {
   computed: {
     ...mapGetters({
       isLoggin: "isLoggedIn",
+      user: "user",
     }),
   },
   methods: {
+    userProfile(userId) {
+      console.log(userId);
+      router.push({
+        name: 'user-profile',
+        params: { id: userId }
+      })
+    },
     signOut() {
       this.$store.dispatch("logout");
     },

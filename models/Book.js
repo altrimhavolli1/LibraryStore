@@ -27,14 +27,14 @@ const BookSchema = new Schema({
         type: String,
         required: [true, 'PublishedYear field is required']
     },
+    productImage: {
+        type: String,
+        required: [true, 'Image is required']
+    },
     updated_date: {
         type: Date,
         default: Date.now
     }
-    // image: {
-    //     type: String,
-    //     required: [true, 'Image is required']
-    // }
 });
 
 const Book = mongoose.model('book', BookSchema);

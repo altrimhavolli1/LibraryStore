@@ -50,7 +50,6 @@ router.get('/profile', (req, res, next) => {
       User.findOne({ _id: payload.id }, (err, user) => {
         if(err) return console.log(err);
         return res.status(200).json({
-          title: 'user grabbed',
           user
         })
       })
