@@ -26,11 +26,10 @@
         >
           <div class="product-grid">
             <div class="product-image">
-              <a href="#">
+              <a href="">
                 <img
                   class="pic-1"
-                  src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-1.jpg"
-                />
+                  :src="`http://localhost:3000/${product.bookImage}`" :alt="product.title">
               </a>
               <ul class="social">
                 <li>
@@ -99,8 +98,9 @@ div {
   display: block;
 }
 .product-grid .product-image img {
-  width: 100%;
-  height: auto;
+  width: 17rem;
+  height: 15rem;
+  margin: 1;
 }
 .product-grid .pic-1 {
   opacity: 1;

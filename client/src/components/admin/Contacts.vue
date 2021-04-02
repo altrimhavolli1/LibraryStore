@@ -72,5 +72,15 @@ export default {
 </script>
 
 <style scoped>
-
+table {
+  table-layout: fixed;
+  width: 100%;
+  text-align: center;
+}
+td {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
 </style>

@@ -23,6 +23,7 @@ import Login from '@/components/Login.vue';
 import Register from '@/components/Register.vue';
 
 import VueRouter from 'vue-router';
+import store from '../store';
 
 export default new VueRouter({
     mode: 'history',
@@ -32,7 +33,19 @@ export default new VueRouter({
         { path: '/about', name: 'about', component: About },
         { path: '/contact', name: 'contact', component: ClientContact},
         { path: '/user-profile/:id', name: 'user-profile', component: UserProfile},
-        { path: '/admin', name: 'admin', component: AdminPanel},
+        { path: '/admin', name: 'admin', component: AdminPanel, 
+            beforeEach: (to, from, next) => {
+                if(store.state.isLoggedIn === ''){
+                    next();
+                } else {
+                    if(store.state.user.user.role === 'Admin'){
+                        next();
+                    } else{
+                        next('/')
+                    }
+                }
+            }
+        },
         { path: '/admin/books', name: 'books', component: Books},
         { path: '/admin/show-book/:id', name: 'show-book', component: Book},
         { path: '/admin/add-book', name: 'add-book', component: AddBook },

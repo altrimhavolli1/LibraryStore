@@ -22,6 +22,7 @@
                                 <td>Address</td>
                                 <td>Email</td>
                                 <td>Password</td>
+                                <td>Image</td>
                                 <td>Role</td>
                                 <td>Edit</td>
                                 <td>Delete</td>
@@ -34,6 +35,7 @@
                                 <td>{{user.address}}</td>
                                 <td>{{user.email}}</td>
                                 <td>{{user.password}}</td>
+                                <td><b-img v-bind="mainProps" width="60" height="60" rounded="circle" ></b-img></td>
                                 <td>{{user.role}}</td>
                                 <td><b-button class="btn btn-success" @click.stop="editbook(user._id)"><i class="fas fa-edit"></i></b-button></td>
                                 <td><b-button class="btn btn-danger" @click.stop="deletebook(user._id)"><i class="fas fa-trash"></i></b-button></td>
@@ -90,5 +92,15 @@ export default {
 </script>
 
 <style scoped>
-
+table {
+  table-layout: fixed;
+  width: 100%;
+  text-align: center;
+}
+td {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
 </style>

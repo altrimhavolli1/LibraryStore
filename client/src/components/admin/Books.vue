@@ -23,6 +23,7 @@
                                 <td>Author</td>
                                 <td>Published</td>
                                 <td>Price</td>
+                                <td>Image</td>
                                 <td>Edit</td>
                                 <td>Delete</td>
                             </tr>
@@ -31,10 +32,11 @@
                             <tr class="" v-for="(book, i) in books" :key="i">
                                 <td>{{book.isbn}}</td>
                                 <td style="width: 15%;">{{book.title}}</td>
-                                <td>{{book.description}}</td>
+                                <td height="20">{{book.description}}</td>
                                 <td style="width: 15%;">{{book.author}}</td>
                                 <td>{{book.published_Year}}</td>
-                                <td>{{book.price}}</td>
+                                <td>${{book.price}}</td>
+                                <td><b-img v-bind="mainProps" width="60" height="60" rounded="circle" :src="`http://localhost:3000/${book.bookImage}`"></b-img></td>
                                 <td><b-button class="btn btn-success" @click.stop="editbook(book._id)"><i class="fas fa-edit"></i></b-button></td>
                                 <td><b-button class="btn btn-danger" @click.stop="deletebook(book._id)"><i class="fas fa-trash"></i></b-button></td>
                             </tr>
@@ -89,5 +91,15 @@ export default {
 </script>
 
 <style scoped>
-
+table {
+  table-layout: fixed;
+  width: 100%;
+  text-align: center;
+}
+td {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
 </style>

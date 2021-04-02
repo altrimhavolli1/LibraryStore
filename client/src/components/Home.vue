@@ -23,7 +23,37 @@
                 <h1 class="bestselling-books">Bestselling Books</h1>
                 <br><br>
                 <div class="text-center">
-                    
+                    <div class="container">
+                        <div class="row">
+                            <div
+                                class="col-md-3 col-sm-6"
+                                v-for="product in products"
+                                :key="product.id"
+                            >
+                                <div class="product-grid">
+                                    <div class="product-image">
+                                    <a href="">
+                                        <img
+                                            class="image-responsive pic-1"
+                                            width="200"
+                                            height="200"
+                                            :src="`http://localhost:3000/${product.bookImage}`" :alt="product.title">
+                                    </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="title">
+                                            <router-link
+                                                class="title"
+                                                :to="{ name: 'product', params: { id: product.id } }"
+                                            >{{ product.title }}
+                                            </router-link>
+                                        </h3>
+                                        <div class="price">${{ product.price }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <b-button
                         type="button"
                         size="lg"
@@ -42,7 +72,15 @@
     export default {
         components: {
             appHeader: Header
-        }
+        },
+        computed: {
+            products() {
+                return this.$store.state.products;
+            },
+        },
+        mounted() {
+            this.$store.dispatch("getProducts");
+        },
     }
 </script>
 

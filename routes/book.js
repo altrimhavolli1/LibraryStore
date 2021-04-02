@@ -4,13 +4,26 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb){
-    cb(null, '../uploads/');
+    cb(null, 'uploads');
   },
   filename: function (req, file, cb){
     cb(null, file.originalname);
   }
-})
-const upload = multer({ storage: storage });
+});
+
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg'){
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+}
+
+const upload = multer({ 
+  storage: storage,
+  fileFilter: fileFilter
+});
 
 const Book = require('../models/Book');
 
@@ -31,25 +44,29 @@ router.get('/:id', function(req, res, next) {
 });
   
 // Create new book
-router.post('/', upload.single('productImage'), (req, res, next) => {
+router.post('/', upload.single('image'), (req, res, next) => {
+  const title = req.body.title;
+  const author = req.body.author;
+  const published_Year = req.body.published_Year;
+  const isbn = req.body.isbn;
+  const price = req.body.price;
+  const description = req.body.description;
+  const bookImage = req.file;
+  
+  let image = bookImage.path;
   const book = new Book({
-    title: req.body.title,
-    author: req.body.author,
-    published_Year: req.body.published_Year,
-    isbn: req.body.isbn,
-    price: req.body.price,
-    description: req.body.description,
-    productImage: req.file.originalname
-  });
+    isbn: isbn,
+    title: title,
+    author: author,
+    description: description,
+    price: price,
+    published_Year: published_Year,
+    bookImage: image,
+  })
   book.save()
     .then(res => {
-      console.log(res);
-      res.status(200).json(book);
+      console.log(book);
     })
-    // Book.create(req.body, function (err, book) {
-    //   if (err) return next(err);
-    //   res.json(book);
-    // });
 });
   
 // UPDATE a book by its ID

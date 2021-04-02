@@ -5,67 +5,73 @@
       <b-container>
         <b-row class="justify-content-md-center mt-4">
         <b-col col md="10">
-         <b-form @submit="onSubmit" class="books">
+         <b-form @submit.prevent="onSubmit" class="books" enctype="multipart/form-data" v-model="valid">
             <h2>Add Book</h2>
             <div v-if="error" class="alert alert-danger">{{error}}</div>
             <b-form-group>
+              <b-form-file
+                type="file"
+                v-model="book.image"
+                :rules="photoRules"
+                required
+                placeholder="Choose a file or drop it here..."
+                size="lg"
+              ></b-form-file>
+            </b-form-group>
+            <b-form-group>
               <b-form-input
-                id="isbn"
                 type="text"
                 placeholder="Enter ISBN"
-                value
-                autofocus
+                :rules="isbnRules"
+                required
                 size="lg"
                 v-model="book.isbn"
               ></b-form-input>
             </b-form-group>
             <b-form-group>
               <b-form-input
-                id="title"
                 type="text"
                 placeholder="Enter Title"
-                value
-                autofocus
+                :rules="titleRules"
+                required
                 size="lg"
                 v-model="book.title"
               ></b-form-input>
             </b-form-group>
             <b-form-group>
               <b-form-input
-                id="author"
                 type="text"
                 placeholder="Enter Author"
-                value
-                autofocus
+                :rules="authorRules"
+                required
                 size="lg"
                 v-model="book.author"
               ></b-form-input>
             </b-form-group>
             <b-form-group>
               <b-form-textarea
-                id="description"
                 v-model="book.description"
                 placeholder="Enter Description"
-                value
+                :rules="descriptionRules"
+                required
                 size="lg"
               >{{book.description}}</b-form-textarea>
             </b-form-group>
             <b-form-group>
               <b-form-input
-                id="published_Year"
                 type="text"
                 placeholder="Enter Published Year"
-                value
+                :rules="publishedYearRules"
+                required
                 size="lg"
                 v-model="book.published_Year"
               ></b-form-input>
             </b-form-group>
             <b-form-group>
               <b-form-input
-                id="price"
                 type="text"
                 placeholder="Enter price"
-                value
+                :rules="priceRules"
                 size="lg"
                 v-model="book.price"
               ></b-form-input>
@@ -100,28 +106,69 @@ export default {
   name: 'CreateBook',
   data () {
     return {
+      valid: false,
+      success: false,
+      error: false,
+
       book: {},
-      error: null
+      
+      isbnRules: [
+        v => !!v || "Isbn is required",
+        v => (v && v.length > 1) || "Isbn must be greater than 10 character"
+      ],
+      titleRules: [
+        v => !!v || "Title is required",
+        v => (v && v.length > 1) || "Title must be greater than 1 character"
+      ],
+      authorRules: [
+        v => !!v || "Author is required",
+        v => (v && v.length > 1) || "Author must be greater than 1 character"
+      ],
+      descriptionRules: [
+        v => !!v || "Description is required",
+        v => (v && v.length > 15) || "Description must be greater than 15 characters"
+      ],
+      publishedYearRules: [
+        v => !!v || "Published Year is required",
+        v => (v && v.length >= 4) || "Published Year must be at least 4 characters"
+      ],
+      priceRules: [
+        v => !!v || "Price is required",
+        v => (v && v.length >= 1) || "Price must be at least 1 characters"
+      ],
+      photoRules: [v => !!v || "Photo is required"],
     }
-  },
-  created () {
-    
   },
   components: {
     appHeader: AdminHeader,
   },
   methods: {
-    onSubmit (evt) {
-      evt.preventDefault()
-      axios.post(`http://localhost:3000/books`, this.book)
-      .then(response => {
-        router.push({
-          name: 'books',
+    async onSubmit() {
+      
+      this.$refs.form.validate();
+      if(this.valid){
+        
+        const formData = new FormData();
+        formData.append("image", this.book.image);
+        formData.set("isbn", this.book.isbn);
+        formData.set("title", this.book.title);
+        formData.set("author", this.book.author);
+        formData.set("description", this.book.description);
+        formData.set("published_Year", this.book.published_Year);
+        formData.set("price", this.book.price);
+        
+        await axios.post(`http://localhost:3000/books`, formData)
+          .then(res => {
+            this.$refs.form.reset()
+            router.push({
+            name: 'books',
+          })
         })
-      })
-      .catch(err => {
-        this.error = err.message;
-      })
+        .catch(err => {
+          this.error = err.message;
+        })
+      }
+      
     }
   }
 }

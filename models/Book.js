@@ -27,7 +27,7 @@ const BookSchema = new Schema({
         type: String,
         required: [true, 'PublishedYear field is required']
     },
-    productImage: {
+    bookImage: {
         type: String,
         required: [true, 'Image is required']
     },

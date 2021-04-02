@@ -15,7 +15,7 @@
             </b-navbar-nav>
             >
             <b-navbar-nav>
-                <b-nav-item to="/shop" active>User Profile</b-nav-item>
+                <b-nav-item to="/user-profile" active>User Profile</b-nav-item>
             </b-navbar-nav>
             </b-collapse>
         </b-navbar>
@@ -46,7 +46,7 @@
 import Header from './Header.vue';
 import AdminHeader from './admin/AdminHeader.vue';
 import axios from 'axios';
-import { mapGetters } from 'Vuex';
+import { mapGetters } from 'vuex';
 export default {
     data () {
         return {
