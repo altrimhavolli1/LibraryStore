@@ -21,7 +21,8 @@
             <br><br>
             <div>
                 <h1 class="bestselling-books">Bestselling Books</h1>
-                <br><br>
+                <hr>
+                <br>
                 <div class="text-center">
                     <div class="container">
                         <div class="row">
@@ -30,30 +31,29 @@
                                 v-for="product in products"
                                 :key="product.id"
                             >
-                                <div class="product-grid">
-                                    <div class="product-image">
-                                    <a href="">
-                                        <img
-                                            class="image-responsive pic-1"
-                                            width="200"
-                                            height="200"
-                                            :src="`http://localhost:3000/${product.bookImage}`" :alt="product.title">
-                                    </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <h3 class="title">
-                                            <router-link
-                                                class="title"
-                                                :to="{ name: 'product', params: { id: product.id } }"
-                                            >{{ product.title }}
-                                            </router-link>
-                                        </h3>
-                                        <div class="price">${{ product.price }}</div>
-                                    </div>
+                                <div>
+                                    <b-card
+                                        class="mb-4"
+                                        :img-src="`http://localhost:3000/${product.bookImage}`"
+                                        img-top
+                                        tag="article"
+                                        style="max-width: 20rem;"
+                                    >
+                                        <b-card-text class="product-grid">
+                                            {{product.title}}
+                                        </b-card-text>
+                                        <b-card-text>
+                                            ${{product.price}}
+                                        </b-card-text>
+
+                                        <b-button href="#" variant="outline-info">View More</b-button>
+                                    </b-card>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    <br>
                     <b-button
                         type="button"
                         size="lg"
@@ -64,6 +64,36 @@
                 </div>
             </div>
         </div>
+        <div class="container about">
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <div class=" row justify-content-center">
+                        <div class="col-md-5 section-about">
+                            <h2 class="aboutus-title">Learn More</h2>
+                            <p class="aboutus-text">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui, eaque tempore exercitationem neque assumenda impedit! 
+                                Debitis distinctio veritatis unde perferendis dignissimos iure animi voluptates ab modi aliquid. Placeat, nemo velit.
+                            </p>
+                            <div>
+                                <b-button 
+                                        type="submit" 
+                                        pill
+                                        to="/about"
+                                        variant="outline-dark" 
+                                        size="md"
+                                    >About Us</b-button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <img src="../assets/images/undraw_laravel_and_vue_59tp.svg" alt="image" class="img-fluid">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
     </div>
 </template>
 
@@ -75,7 +105,7 @@
         },
         computed: {
             products() {
-                return this.$store.state.products;
+                return this.$store.state.products.slice(0, 4);
             },
         },
         mounted() {
@@ -114,12 +144,40 @@
         height: 600px;
     }
 
+    .about{
+    padding: 9rem 0;
+}
+.section-about{
+    padding-top: 2.5rem;
+    padding-right: 5rem;
+}
+
+.section-about h2 {
+    padding-top: 8rem;;
+    padding-bottom: 1rem;
+}
+
+.section-about p{
+    color: #606060;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.section-about button {
+    margin-top: 1rem;
+}
+
     .bestselling-books{
         font-size: 46px;
         color: #161619;
         font-weight: 400;
         text-align: center;
         margin: 0;
+    }
+
+    .product-grid {
+        font-size: 16px;
+        font-weight: bold;
     }
 
     @media only screen and (max-width: 1200px) {

@@ -98,8 +98,8 @@ div {
   display: block;
 }
 .product-grid .product-image img {
-  width: 17rem;
-  height: 15rem;
+  width: 16rem;
+  height: 19rem;
   margin: 1;
 }
 .product-grid .pic-1 {
